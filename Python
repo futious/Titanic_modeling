@@ -32,7 +32,7 @@ y_col = 'Survived'
 train_df['Sex'] = train_df['Sex'].map({'male': 1, 'female': 0})
 
 
-'''
+
 ####################### Makes the cabin number irrelevent but uses the floor as the delineator
 train_df['Cabin'] = train_df['Cabin'].fillna('none')
 
@@ -48,12 +48,11 @@ train_df['Cabin'] = train_df['Cabin'].apply(lambda x: '0' if 'none' in x else x)
 train_df['Cabin'] = train_df['Cabin'].apply(lambda x: '0' if 'T' in x else x)
 
 #######################
+
+
+
 '''
-
-
-
 #ignores the floor and uses the cabin number
-
 
 
 train_df['Cabin'] = train_df['Cabin'].str.replace('A', '', regex=True)
@@ -64,6 +63,8 @@ train_df['Cabin'] = train_df['Cabin'].str.replace('E', '', regex=True)
 train_df['Cabin'] = train_df['Cabin'].str.replace('F', '', regex=True)
 train_df['Cabin'] = train_df['Cabin'].str.replace('G', '', regex=True)
 train_df['Cabin'] = train_df['Cabin'].str.replace('T', '', regex=True)
+train_df['Cabin'] = train_df['Cabin'].str.replace(' ', '', regex=True)
+train_df['Cabin'] = train_df['Cabin'].replace(r'^\s*$', np.NaN, regex=True)
 
 #remove white space for items like c28 c35 c23 and replaces NAN as 0
 
@@ -71,10 +72,7 @@ train_df['Cabin'] = train_df['Cabin'].str.replace(' .*','', regex=True)
 
 train_df['Cabin'] = train_df['Cabin'].fillna(0)
 train_df['Cabin'] = train_df['Cabin'].astype(int)
-
-
-
-
+'''
 
 
 
@@ -105,7 +103,7 @@ print('Accuracy for logistic regression is', (train_df[y_col] == train_df['predi
 
 #################################
 
-train_df2= train_df.drop(columns=['Cabin'])
+train_df2= train_df.drop(columns=['prediction'])
 
 gX_cols = [x for x in train_df2 if x != y_col]
 
