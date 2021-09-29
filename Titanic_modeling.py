@@ -17,7 +17,7 @@ import matplotlib.dates as mdates
 from sklearn import datasets
 from sklearn import metrics
 from sklearn.linear_model import LogisticRegression 
-lr = LogisticRegression(max_iter=10000)
+lr = LogisticRegression(max_iter=1000)
 
 from sklearn.naive_bayes import GaussianNB
 g=GaussianNB()
@@ -72,8 +72,10 @@ train_df['Cabin'] = train_df['Cabin'].str.replace(' .*','', regex=True)
 
 train_df['Cabin'] = train_df['Cabin'].fillna(0)
 train_df['Cabin'] = train_df['Cabin'].astype(int)
-'''
 
+train_df['Cabin 0-75'] = (train_df['Cabin']<=75).astype(int)
+train_df['Cabin 76-150'] = ( (train_df['Cabin']<=150) & (train_df['Cabin']>=76) ).astype(int)
+'''
 
 
 
@@ -100,7 +102,7 @@ print('Accuracy for logistic regression is', (train_df[y_col] == train_df['predi
 
 
     
-
+'''
 #################################
 
 train_df2= train_df.drop(columns=['prediction'])
@@ -113,5 +115,7 @@ train_df2['Gaus prediction'] = g.predict(train_df2[gX_cols])
 print('Accuracy for Naive Gaussian is', (train_df2[y_col] == train_df2['Gaus prediction']).mean())
 
 
+#random forest
+'''
 
 
