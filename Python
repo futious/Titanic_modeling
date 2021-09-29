@@ -68,7 +68,7 @@ train_df['Cabin'] = train_df['Cabin'].str.replace('T', '', regex=True)
 #remove white space for items like c28 c35 c23 and replaces NAN as 0
 
 train_df['Cabin'] = train_df['Cabin'].str.replace(' .*','', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('',0, regex=True)
+
 train_df['Cabin'] = train_df['Cabin'].fillna(0)
 train_df['Cabin'] = train_df['Cabin'].astype(int)
 
