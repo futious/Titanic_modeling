@@ -23,6 +23,19 @@ lr = LogisticRegression(max_iter=1000)
 from sklearn.naive_bayes import GaussianNB
 g=GaussianNB()
 
+from sklearn.svm import SVC 
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split 
+
+
+
+param_grid = {'C': [0.1, 1, 10, 100],  
+              'max_iter': [100,200,300,400,500,600,700,800,900,1000]}
+
+
+grid = GridSearchCV(SVC(), param_grid, refit = True, verbose = 3,n_jobs=-1) 
+
+
 
 
 train_df = pd.read_csv('/Users/koreynishimoto/Desktop/Titanic/'
@@ -118,5 +131,14 @@ print('Accuracy for Naive Gaussian is', (train_df2[y_col] == train_df2['Gaus pre
 
 #random forest
 '''
+
+
+
+
+grid.fit(train_df[X_cols], train_df[y_col])
+
+train_df['prediction'] = grid.predict(train_df[X_cols])
+
+print('Accuracy for logistic regression is', (train_df[y_col] == train_df['prediction']).mean())
 
 
