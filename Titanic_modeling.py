@@ -18,22 +18,25 @@ import matplotlib.dates as mdates
 from sklearn import datasets
 from sklearn import metrics
 from sklearn.linear_model import LogisticRegression 
-lr = LogisticRegression(max_iter=1000)
+lr = LogisticRegression(max_iter=200,C=1)
 
 from sklearn.naive_bayes import GaussianNB
 g=GaussianNB()
 
 from sklearn.svm import SVC 
+clf = SVC(max_iter=10000, C=1000)
+
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split 
 
 
-
-param_grid = {'C': [0.1, 1, 10, 100],  
+# set the paramaters that you want to test
+param_grid = {'C': [0.1, 1, 10, 100,1000],  
               'max_iter': [100,200,300,400,500,600,700,800,900,1000]}
 
-
-grid = GridSearchCV(SVC(), param_grid, refit = True, verbose = 3,n_jobs=-1) 
+# create a grid that will test the above parameters. change first part to
+# Change the type of model.
+grid = GridSearchCV(lr, param_grid, refit = True, verbose = 3,n_jobs=-1) 
 
 
 
@@ -132,13 +135,44 @@ print('Accuracy for Naive Gaussian is', (train_df2[y_col] == train_df2['Gaus pre
 #random forest
 '''
 
+#SVC testing
+train_df2= train_df.drop(columns=['prediction'])
+
+gX_cols = [x for x in train_df2 if x != y_col]
+
+clf.fit(train_df2[gX_cols], train_df2[y_col])
+
+train_df2['SVC prediction'] = clf.predict(train_df2[gX_cols])
+print('Accuracy for SVC is', (train_df2[y_col] == train_df2['SVC prediction']).mean())
 
 
 
-grid.fit(train_df[X_cols], train_df[y_col])
 
-train_df['prediction'] = grid.predict(train_df[X_cols])
 
-print('Accuracy for logistic regression is', (train_df[y_col] == train_df['prediction']).mean())
+
+# paramater changing
+
+train_df3= train_df.drop(columns=['prediction'])
+
+testX_cols = [x for x in train_df3 if x != y_col]
+
+grid.fit(train_df[testX_cols], train_df[y_col])
+
+train_df3['test prediction'] = grid.predict(train_df3[testX_cols])
+
+print('Accuracy for test is', (train_df3[y_col] == train_df3['test prediction']).mean())
+
+
+
+
+print(grid.best_score_)
+
+#print best esetimators for all.
+print(grid.best_estimator_)
+
+#print best estimators for individuals
+print(grid.best_estimator_.max_iter)
+print(grid.best_estimator_.C)
+
 
 
