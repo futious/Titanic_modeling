@@ -15,6 +15,11 @@ from numpy import std
 
 import matplotlib.pyplot as plt
 
+
+from sklearn.model_selection import GridSearchCV
+from sklearn_evaluation import plot
+
+
 from sklearn.linear_model import LogisticRegression 
 lr = LogisticRegression(max_iter=1000,C=1)
 
@@ -25,18 +30,24 @@ g=GaussianNB()
 from sklearn.svm import SVC 
 clf = SVC(max_iter=100000, C=1000)
 
-from sklearn.model_selection import GridSearchCV
 
-
-from numpy import array
 from sklearn.model_selection import KFold
 
 from sklearn.model_selection import cross_val_score
-from sklearn.datasets import make_classification
 
 
 from sklearn import tree
-dt = tree.DecisionTreeClassifier()
+dt = tree.DecisionTreeClassifier(max_depth=10)
+
+
+import dash
+from dash import dcc
+
+from dash import html
+
+import plotly.express as px
+
+app = dash.Dash(__name__)
 
 
 
@@ -82,6 +93,16 @@ grid = GridSearchCV(lr, param_grid, refit = True, verbose = 3,n_jobs=-1)
 
 
 
+
+
+
+
+#################################################################################################
+########################################################################
+########################################################################
+
+
+#Logistic regression
 
 ####################### Makes the cabin number irrelevent but uses the floor as the delineator
 train_df['Cabin'] = train_df['Cabin'].fillna('none')
@@ -175,9 +196,9 @@ print(lr_test)
 
     
 
-
-#random forest
-
+#################################################################################################
+########################################################################
+########################################################################
 
 
 
@@ -240,12 +261,41 @@ print('\n Decision tree Accuracy: %.3f (%.3f)' % (mean(dt_scores), std(dt_scores
 print(dt_test)
 
 
+
+
+
+
+
+#################################################################################################
+########################################################################
+########################################################################
+
+#random forest
+
+
+
+
 #################################################################################################
 ########################################################################
 ########################################################################
 #GRID TESTING 
 
-'''
+
+#Decision trees have a random element to them and the nest found may vary over different runs.
+
+
+param_grid = {'max_depth': [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22],
+              'random_state': [1,2]
+              }
+
+# create a grid that will test the above parameters. change first part to
+# Change the type of model.
+grid = GridSearchCV(dt, param_grid, refit = True, verbose = 3,n_jobs=-1) 
+
+
+
+
+
 # paramater changing
 
 train_df3= train_df.drop(columns=['prediction'])
@@ -256,7 +306,8 @@ grid.fit(train_df3[testX_cols], train_df[y_col])
 
 train_df3['test prediction'] = grid.predict(train_df3[testX_cols])
 
-print('Accuracy for test is', (train_df3[y_col] == train_df3['test prediction']).mean())
+print('\n Accuracy for test is', (train_df3[y_col] == train_df3['test prediction']).mean())
+
 
 
 
@@ -266,11 +317,92 @@ print(grid.best_score_)
 #print best esetimators for all.
 print(grid.best_estimator_)
 
+
+plot.grid_search(grid.cv_results_, change='max_depth', kind='bar')
+ 
+
+'''
 #print best estimators for individuals
 print(grid.best_estimator_.max_iter)
 print(grid.best_estimator_.C)
 '''
-    
+
+'''    
+
+
+#################################################################################################
+########################################################################
+########################################################################
+#plotly dashboard
+
+gender = train_df.groupby(by=['Sex']).mean()
+
+data = {'Mean': gender.iloc[0].append( gender.iloc[1]),
+        'Sex' : [0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1],      
+        'Category': ['Survived',
+                     'Pclass', 
+                     'Age',
+                    'SibSp',
+                    'Parch',
+                    'Fare',
+                    'Embarked_C',
+                    'Embarked_Q',
+                    'Embarked_S',
+                    'Embarked_nan',
+                    'prediction',
+                    'Survived',
+                     'Pclass', 
+                     'Age',
+                    'SibSp',
+                    'Parch',
+                    'Fare',
+                    'Embarked_C',
+                    'Embarked_Q',
+                    'Embarked_S',
+                    'Embarked_nan',
+                    'prediction']}
+ 
+# Creates pandas DataFrame.
+gender_df = pd.DataFrame(data
+            )
+gender_df=gender_df.drop(labels=['Pclass','SibSp','Parch','Embarked_C','Embarked_C',
+                                 'Embarked_Q','Embarked_S','Embarked_nan', 'Age','Fare'])
+
+
+
+
+fig = px.bar(gender_df, x='Category', y="Mean",color='Sex', barmode="group")
+
+
+app.layout = html.Div(children=[
+    html.H1(children='Hello Dash'),
+
+
+    dcc.Graph(
+        id='example-graph',
+        figure=fig
+    ),
+
+
+])
+
+if __name__ == '__main__':
+    app.run_server(host = '127.0.0.1', debug=True, port = 8050)
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
 
