@@ -47,6 +47,10 @@ from dash import html
 
 import plotly.express as px
 
+
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL) 
+
 app = dash.Dash(__name__)
 
 
@@ -330,66 +334,6 @@ print(grid.best_estimator_.C)
 '''    
 
 
-#################################################################################################
-########################################################################
-########################################################################
-#plotly dashboard
-
-gender = train_df.groupby(by=['Sex']).mean()
-
-data = {'Mean': gender.iloc[0].append( gender.iloc[1]),
-        'Sex' : [0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1],      
-        'Category': ['Survived',
-                     'Pclass', 
-                     'Age',
-                    'SibSp',
-                    'Parch',
-                    'Fare',
-                    'Embarked_C',
-                    'Embarked_Q',
-                    'Embarked_S',
-                    'Embarked_nan',
-                    'prediction',
-                    'Survived',
-                     'Pclass', 
-                     'Age',
-                    'SibSp',
-                    'Parch',
-                    'Fare',
-                    'Embarked_C',
-                    'Embarked_Q',
-                    'Embarked_S',
-                    'Embarked_nan',
-                    'prediction']}
- 
-# Creates pandas DataFrame.
-gender_df = pd.DataFrame(data
-            )
-gender_df=gender_df.drop(labels=['Pclass','SibSp','Parch','Embarked_C','Embarked_C',
-                                 'Embarked_Q','Embarked_S','Embarked_nan', 'Age','Fare'])
-
-
-
-
-fig = px.bar(gender_df, x='Category', y="Mean",color='Sex', barmode="group")
-
-
-app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
-
-
-    dcc.Graph(
-        id='example-graph',
-        figure=fig
-    ),
-
-
-])
-
-if __name__ == '__main__':
-    app.run_server(host = '127.0.0.1', debug=True, port = 8050)
-
-'''
 
 
 
