@@ -275,7 +275,9 @@ print(grid.best_estimator_)
 plot.grid_search(grid.cv_results_, change='max_depth', kind='bar')
  
 
-'''
+''' Use this code to find the best paramater settings. You will need to 
+change the paramaters for different tests.
+
 #print best estimators for individuals
 print(grid.best_estimator_.max_iter)
 print(grid.best_estimator_.C)
