@@ -9,12 +9,8 @@ Some words
 
 import pandas as pd
 
-import numpy as np
 from numpy import mean
 from numpy import std
-
-import matplotlib.pyplot as plt
-
 
 from sklearn.model_selection import GridSearchCV
 from sklearn_evaluation import plot
@@ -39,14 +35,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn import tree
 dt = tree.DecisionTreeClassifier(max_depth=10)
 
-
 import dash
-from dash import dcc
-
-from dash import html
-
-import plotly.express as px
-
 
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL) 
@@ -95,12 +84,6 @@ grid = GridSearchCV(lr, param_grid, refit = True, verbose = 3,n_jobs=-1)
 
 
 
-
-
-
-
-
-
 #################################################################################################
 ########################################################################
 ########################################################################
@@ -124,33 +107,6 @@ train_df['Cabin'] = train_df['Cabin'].apply(lambda x: '0' if 'T' in x else x)
 
 #######################
 
-
-
-'''
-#ignores the floor and uses the cabin number
-
-
-train_df['Cabin'] = train_df['Cabin'].str.replace('A', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('B', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('C', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('D', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('E', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('F', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('G', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace('T', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].str.replace(' ', '', regex=True)
-train_df['Cabin'] = train_df['Cabin'].replace(r'^\s*$', np.NaN, regex=True)
-
-#remove white space for items like c28 c35 c23 and replaces NAN as 0
-
-train_df['Cabin'] = train_df['Cabin'].str.replace(' .*','', regex=True)
-
-train_df['Cabin'] = train_df['Cabin'].fillna(0)
-train_df['Cabin'] = train_df['Cabin'].astype(int)
-
-train_df['Cabin 0-75'] = (train_df['Cabin']<=75).astype(int)
-train_df['Cabin 76-150'] = ( (train_df['Cabin']<=150) & (train_df['Cabin']>=76) ).astype(int)
-'''
 
 
 
@@ -269,12 +225,6 @@ print(dt_test)
 
 
 
-
-#################################################################################################
-########################################################################
-########################################################################
-
-#random forest
 
 
 
