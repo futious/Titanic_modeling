@@ -29,6 +29,15 @@
 
 ## About The Project
 
+This project was created to demonstrate different types of models. This includes
+
+1) Grid Testing
+2) Logistic Regression
+3) Kfold Testing
+4) SVC Testing
+5) Decision Tree
+
+The project will display the accuracy, or average correctness, as well as some relevent information for each model in the console.
 
 
 
@@ -80,8 +89,23 @@ git clone https://github.com/futious/Titanic_modeling.git
 <!-- How to Use -->
 ## How to Use
 
+Once you run the code the relavent information will populate in the concole.
+ <p>
+  <img width="1000" align='left' src="https://user-images.githubusercontent.com/49052260/150414521-05966ae7-4360-45c9-9d1b-a46cf11ecba1.png?raw=true">
+</p>
 
+This information can be broken down into three parts. 
+* The accuracy for the test its self.
+* The accuracy using kfold testing.
+* The array of outputs when using kfold testing. 
 
+The current setup uses a 3 fold testing system, but that can be changed.
+
+The last 4 rows gives you infomration when you are testing for optimal parameter. 
+*The first line shows the total amount of different combinations of parameters. the
+*The second line shows the accuracy of the test.
+*The third line shws the average of all the different models using the different combinations of parameters.
+*The lst line shows the optimal parameters for the model.
 
 
 
