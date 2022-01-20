@@ -35,12 +35,11 @@ from sklearn.model_selection import cross_val_score
 from sklearn import tree
 dt = tree.DecisionTreeClassifier(max_depth=10)
 
-import dash
 
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL) 
 
-app = dash.Dash(__name__)
+
 
 
 
