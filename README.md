@@ -95,17 +95,17 @@ Once you run the code the relavent information will populate in the concole.
 </p>
 
 This information can be broken down into three parts. 
-* The accuracy for the test its self.
+* The accuracy for the test itself.
 * The accuracy using kfold testing.
 * The array of outputs when using kfold testing. 
 
 The current setup uses a 3 fold testing system, but that can be changed.
 
-The last 4 rows gives you infomration when you are testing for optimal parameter. 
+The last 4 rows give you information when you are testing for optimal parameters. 
 *The first line shows the total amount of different combinations of parameters. the
 *The second line shows the accuracy of the test.
-*The third line shws the average of all the different models using the different combinations of parameters.
-*The lst line shows the optimal parameters for the model.
+*The third line shows the average of all the different models using the different combinations of parameters.
+*The last line shows the optimal parameters for the model.
 
 
 
