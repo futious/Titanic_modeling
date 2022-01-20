@@ -149,7 +149,7 @@ lr_test.append(lr_scores)
 
 print('\n Logistic Regression Accuracy: %.3f (%.3f)' % (mean(lr_scores), std(lr_scores)))
 
-print(lr_test)
+print('kfold tests'+str(lr_test))
 
 
 
@@ -181,7 +181,7 @@ clf_test.append(clf_scores)
 
 print('\n Support Vector Machines Accuracy: %.3f (%.3f)' % (mean(clf_scores), std(clf_scores)))
 
-print(clf_test)
+print('kfold tests'+str(clf_test))
 
 
 
@@ -217,7 +217,7 @@ dt_test.append(dt_scores)
 
 print('\n Decision tree Accuracy: %.3f (%.3f)' % (mean(dt_scores), std(dt_scores)))
 
-print(dt_test)
+print('kfold tests'+str(dt_test))
 
 
 
@@ -259,13 +259,13 @@ grid.fit(train_df3[testX_cols], train_df[y_col])
 
 train_df3['test prediction'] = grid.predict(train_df3[testX_cols])
 
-print('\n Accuracy for test is', (train_df3[y_col] == train_df3['test prediction']).mean())
+print('\n Accuracy for tested parameters decision tree is ', (train_df3[y_col] == train_df3['test prediction']).mean())
 
 
 
 
 
-print(grid.best_score_)
+print('average of the score using the tuned parameters '+str(grid.best_score_))
 
 #print best esetimators for all.
 print(grid.best_estimator_)
