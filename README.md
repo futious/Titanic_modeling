@@ -19,6 +19,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+        <li><a href="#how-to-use">How to Use</a> </li>
     <li><a href="#roadmap">Roadmap</a></li>
   </ol>
 </details>
@@ -52,27 +53,22 @@
 
 To view the dashboard in its entirety you will need to download the following. 
 
-1) Assets folder
-2) OnlineRetail.csv.zip
-3) app.py
+1) Titanic folder
+2) Titanic_modeling_one.py
+
 
 or clone the repository 
 ```sh
-git clone https://github.com/futious/Online-Retail-Dashboard.git
+git clone https://github.com/futious/Titanic_modeling.git
 ```
-
-
-After you have downloaded all of these items and opened the zip file run the python code. The dashboard will run locally and requires you to use your internet browser to see it. Input http://127.0.0.1:8070 into your browser and the dashboard will populate only after the code has been run.
-
 
 
   ---
 ### Installation
-
-To run the code you may need to download dash in your terminal using 
+ 
 
    ```sh
-   pip install dash
+  pip install panda==1.2.4
    ```
 
 
@@ -81,18 +77,24 @@ To run the code you may need to download dash in your terminal using
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+<!-- How to Use -->
+## How to Use
+
+
+
+
+
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-
-
-Some other components I would like to use in the future are
-- [ ] Sunburst charts
-- [ ] Tabs
-- [ ] Markers for the line chart
+This project is not yet complete and requires the following.
+- [ ] Modifications to the information that the model uses.
+- [ ] Multiple iterations of the models.
+- [ ] Check the Decision tree model with its 93% accuracy to determine if the model is overfitted.
+- [ ] Run the model that is determined to be optimal on the test data set.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
